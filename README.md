@@ -1,27 +1,35 @@
-# Computation practicum
+# Computational practicum
+# Margarita Peregudova BS18-05
 
 ## Description
 
-#### In this task we have such subproblems:
-1. 
-2. 
-3. 
+#### Content of the project:
+1. `plots-update.py` contain code with OOP-design standards, in particular, organized  within SOLID principles
+2. `plots.py` contain code with pure functional programming
+3. `window.py` contain implementation of GUI with real-time changing plots
+4. `DE_F19_Computational_Practicum.pdf` contain descriprion of tha task
+5. `UML_diagram.png` contain UML-diagram of classes
+6. `report.pdf` contain report of computational practicum
+
+#### Code description:
+- __Code contain__ :
+- - Euler’s method, Improved Euler’s method, Runge-Kutta method
+- - Exact equation
+- - visualization 
+- __Visualization contain__:
+- - 3 graphs plots: local error plot, exact solution, maximal local error plot 
+- - fields for changing parameters: x0, y0, X, N, and interval for the error
 
 
-1. Euler’s method, improved Euler’s method and Runge-Kutta method should be implemented in the application with corresponded GUI, that allows user to change x0 , y0 , X, N and plot the graphs of exact and numerical solutions.
-2. Also the graph of local errors for each method also should be plotted.
-3. Results should be incorporated to the final report.
-4. Implementation should obey to OOP-design standards, in particular, the code should be organized within SOLID principles (especially within single responsibility principle, Liskov substitution principle, interface segregation principle).
-5. Report should contain UML-diagram of classes and the most interesting parts of source code.
+#### Remark: SOLID principles
+SOLID principle contain __five design principles__:
 
+1. Single Responsibility Principle (SRP)
+2. Open/Closed Principle (OCP)
+3. Liskov Substitution Principle (LSP)
+4. Interface Segregation Principle (ISP)
+5. Dependency Inversion Principle (DIP)
 
-## SOLID principles
+__Python__ is a specific programming languages and it has __a specific implementation feature__:
+- (ISP) Python doesn't have interfaces because it has late binding/duck typing which is strictly more powerful at the cost of being less type-safe, and it can use abstract base classes (implemented using metaclasses) with multiple inheritance if you want to enforce that all instances of a class implements a set of methods.
 
-1. Single Responsibility Principle
-2. Open/Closed Principle
-3. Liskov Substitution Principle
-4. Interface Segregation Principle
-
-Python doesn't have interfaces because it has late binding/duck typing which is strictly more powerful at the cost of being less type-safe, and it can use abstract base classes (implemented using metaclasses) with multiple inheritance if you want to enforce that all instances of a class implements a set of methods.
-
-5. Dependency Inversion Principle
