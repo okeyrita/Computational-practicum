@@ -3,13 +3,15 @@
 
 ## Description
 
+####link to report 
+####https://docs.google.com/document/d/11vYCIDK6QEcCMEkv-klHRva_S5AKLd5Vtb0pX16L1rI/edit?usp=sharing
+
 #### Content of the project:
 1. `plots-update.py` contain code with OOP-design standards, in particular, organized  within SOLID principles
 2. `plots.py` contain code with pure functional programming
 3. `window.py` contain implementation of GUI with real-time changing plots
 4. `DE_F19_Computational_Practicum.pdf` contain descriprion of tha task
 5. `UML_diagram.png` contain UML-diagram of classes
-6. `report.pdf` contain report of computational practicum
 
 #### Code description:
 - __Code contain__ :
@@ -17,7 +19,7 @@
 - - Exact equation
 - - visualization 
 - __Visualization contain__:
-- - 3 graphs plots: local error plot, exact solution, maximal local error plot 
+- - 3 graphs plots: local error plot, exact solution, plot for global error
 - - fields for changing parameters: x0, y0, X, N, and interval for the error
 
 
