@@ -43,9 +43,7 @@ class Exact_equation:
 class Global_error:
 
     def get_error(self, y, n):
-        alfa = 0
-        for i in range(0, n + 1):
-            alfa = alfa + y[i]
+        alfa = y[n]
         return alfa
 
 
@@ -70,88 +68,87 @@ class Numerical_methods:
             return 0
         return math.exp(x) + 1/(const-x)
 
-    def get_curve(self):
+    def get_curve(self, n):
         pass
 
-    def get_error(self, y):
+    def get_error(self, y, n):
         pass
 
 
 class Eulers_method(Numerical_methods):
 
-    def get_curve(self):
-        x = [0]*(self.n+1)
-        y = [0]*(self.n+1)
-        h = (self.b-self.x0)/self.n
+    def get_curve(self, n):
+        x = [0]*(n+1)
+        y = [0]*(n+1)
+        h = (self.b-self.x0)/n
 
         y[0] = self.y0
         x[0] = self.x0
 
-        for i in range(1, self.n+1):
+        for i in range(1, n+1):
             x[i] = self.x0 + i*h
 
         # the equation of the tangent line
         y[1] = self.y0 + h*super().initial_value_problem(self.x0, self.y0)
-        for i in range(2, self.n+1):
+        for i in range(2, n+1):
             y[i] = y[i-1] + h*super().initial_value_problem(x[i-1], y[i-1])
 
         return y
 
-    def get_error(self, y):
-        x = [0]*(self.n+1)
+    def get_error(self, y, n):
+        x = [0]*(n+1)
         x[0] = self.x0
-        h = (self.b-self.x0)/self.n
+        h = (self.b-self.x0)/n
 
-        error = [0]*(self.n+1)
+        error = [0]*(n+1)
         error[0] = 0
 
-        for i in range(1, self.n+1):
+        for i in range(1,n+1):
             x[i] = self.x0 + i*h
 
         # error at the i th step.
-        for i in range(1, self.n+1):
-            error[i] = math.fabs(super().exact_solution(
-                x[i]) - y[i])  # math.fabs(X)
+        for i in range(1,n+1):
+            error[i] = math.fabs(super().exact_solution(x[i]) - y[i])  # math.fabs(X)
 
         return error
 
 
 class Improved_euler_method(Numerical_methods):
 
-    def get_curve(self):
-        x = [0]*(self.n+1)
-        y = [0]*(self.n+1)
-        h = (self.b-self.x0)/self.n
+    def get_curve(self, n):
+        x = [0]*(n+1)
+        y = [0]*(n+1)
+        h = (self.b-self.x0)/n
 
         y[0] = self.y0
         x[0] = self.x0
 
-        for i in range(1, self.n+1):
+        for i in range(1, n+1):
             x[i] = self.x0 + i*h
 
         # the equation of the tangent line
         y[1] = self.y0 + (h/2)*(super().initial_value_problem(self.x0, self.y0) +
                                 super().initial_value_problem(x[1], self.y0+h*super().initial_value_problem(self.x0, self.y0)))
-        for i in range(2, self.n+1):
+        for i in range(2, n+1):
             y[i] = y[i-1] + (h/2)*(super().initial_value_problem(x[i-1], y[i-1]) +
                                    super().initial_value_problem(x[i], y[i-1]+h*super().initial_value_problem(x[i-1], y[i-1])))
 
         return y
 
-    def get_error(self, y):
-        x = [0]*(self.n+1)
-        h = (self.b-self.x0)/self.n
+    def get_error(self, y, n):
+        x = [0]*(n+1)
+        h = (self.b-self.x0)/n
 
         x[0] = self.x0
 
-        error = [0]*(self.n+1)
+        error = [0]*(n+1)
         error[0] = 0
 
-        for i in range(1, self.n+1):
+        for i in range(1, n+1):
             x[i] = self.x0 + i*h
 
         # error at the i th step.
-        for i in range(1, self.n+1):
+        for i in range(1, n+1):
             error[i] = math.fabs(super().exact_solution(x[i]) - y[i])
 
         return error
@@ -159,19 +156,19 @@ class Improved_euler_method(Numerical_methods):
 
 class Runge_kutta_method(Numerical_methods):
 
-    def get_curve(self):
-        x = [0]*(self.n+1)
-        y = [0]*(self.n+1)
-        h = (self.b-self.x0)/self.n
+    def get_curve(self, n):
+        x = [0]*(n+1)
+        y = [0]*(n+1)
+        h = (self.b-self.x0)/n
 
         y[0] = self.y0
         x[0] = self.x0
 
-        for i in range(1, self.n+1):
+        for i in range(1, n+1):
             x[i] = self.x0 + i*h
 
         # the equation of the tangent line
-        for i in range(1, self.n+1):
+        for i in range(1, n+1):
             k_1 = super().initial_value_problem(x[i-1], y[i-1])
             k_2 = super().initial_value_problem(x[i-1] + h/2, y[i-1]+(h/2)*k_1)
             k_3 = super().initial_value_problem(x[i-1] + h/2, y[i-1]+(h/2)*k_2)
@@ -180,20 +177,20 @@ class Runge_kutta_method(Numerical_methods):
             y[i] = y[i-1] + (h/6)*(k_1 + 2*k_2 + 2*k_3 + k_4)
         return y
 
-    def get_error(self, y):
-        x = [0]*(self.n+1)
-        h = (self.b-self.x0)/self.n
+    def get_error(self, y, n):
+        x = [0]*(n+1)
+        h = (self.b-self.x0)/n
 
         x[0] = self.x0
 
-        error = [0]*(self.n+1)
+        error = [0]*(n+1)
         error[0] = 0
 
-        for i in range(1, self.n+1):
+        for i in range(1, n+1):
             x[i] = self.x0 + i*h
 
         # error at the i th step.
-        for i in range(1, self.n+1):
+        for i in range(1,n+1):
             error[i] = math.fabs(super().exact_solution(x[i]) - y[i])
 
         return error
@@ -287,7 +284,7 @@ class Draw_plot_for_global_error_plot(Draw_plot):
 
 
 if __name__ == "__main__":
-
+    # x0, y0, n, b):
     euler_method = Eulers_method(float(sys.argv[1]), float(
         sys.argv[2]), int(sys.argv[4]), float(sys.argv[3]))
 
@@ -302,7 +299,7 @@ if __name__ == "__main__":
 
     global_error = Global_error()
 
-    em = [0]*(int(sys.argv[6]) - int(sys.argv[5])+1)
+    em = [0]*(int(sys.argv[6]) - int(sys.argv[5]) +1)
     iem = [0]*(int(sys.argv[6]) - int(sys.argv[5])+1)
     rkm = [0]*(int(sys.argv[6]) - int(sys.argv[5])+1)
     xn = [0]*(int(sys.argv[6]) - int(sys.argv[5])+1)
@@ -314,17 +311,18 @@ if __name__ == "__main__":
             sys.argv[2]), int(sys.argv[5])+i, float(sys.argv[3]))
         m3 = Runge_kutta_method(float(sys.argv[1]), float(
             sys.argv[2]), int(sys.argv[5])+i, float(sys.argv[3]))
-        em[i] = global_error.get_error(m1.get_error(
-            euler_method.get_curve()), int(sys.argv[5])+i)
-        iem[i] = global_error.get_error(m2.get_error(
-            improved_euler_method.get_curve()), int(sys.argv[5])+i)
-        rkm[i] = global_error.get_error(m3.get_error(
-            runge_kutta_method.get_curve()), int(sys.argv[5])+i)
-    plot_exact_solution = Draw_plot_for_exact_solution(
-        exact_equation.array_x_axis(), exact_equation.array_exact(),  euler_method.get_curve(), improved_euler_method.get_curve(), runge_kutta_method.get_curve())
 
-    plot_local_error = Draw_plot_for_local_error_plot(exact_equation.array_x_axis(), euler_method.get_error(euler_method.get_curve(
-    )), improved_euler_method.get_error(improved_euler_method.get_curve()), runge_kutta_method.get_error(runge_kutta_method.get_curve()))
+        em[i] = global_error.get_error(m1.get_error( m1.get_curve(int(sys.argv[5])+i),int(sys.argv[5])+i ), int(sys.argv[5])+i)
+
+        iem[i] = global_error.get_error(m2.get_error(m2.get_curve(int(sys.argv[5])+i),int(sys.argv[5])+i ), int(sys.argv[5])+i)
+
+        rkm[i] = global_error.get_error(m3.get_error( m3.get_curve(int(sys.argv[5])+i),int(sys.argv[5])+i ), int(sys.argv[5])+i)
+
+    plot_exact_solution = Draw_plot_for_exact_solution(
+        exact_equation.array_x_axis(), exact_equation.array_exact(),  euler_method.get_curve( int(sys.argv[4])), improved_euler_method.get_curve( int(sys.argv[4])), runge_kutta_method.get_curve( int(sys.argv[4])))
+
+    plot_local_error = Draw_plot_for_local_error_plot(exact_equation.array_x_axis(), euler_method.get_error(euler_method.get_curve( int(sys.argv[4])
+    ),int(sys.argv[4]) ), improved_euler_method.get_error(improved_euler_method.get_curve( int(sys.argv[4])),int(sys.argv[4]) ), runge_kutta_method.get_error(runge_kutta_method.get_curve( int(sys.argv[4])),int(sys.argv[4]) ))
 
     draw_plot_for_global_error_plot = Draw_plot_for_global_error_plot(
         xn, em, iem, rkm, int(sys.argv[5]), int(sys.argv[6]))
